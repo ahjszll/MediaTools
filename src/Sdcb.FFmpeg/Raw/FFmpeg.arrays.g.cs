@@ -437,6 +437,45 @@ namespace Sdcb.FFmpeg.Raw
         }
     }
     
+    public unsafe struct byte_array4
+    {
+        public const int Size = 4;
+        public fixed byte _[4];
+        
+        public byte this[int i]
+        {
+            get => i switch
+            {
+                >= 0 and < Size => _[i],
+                _ => throw new ArgumentOutOfRangeException($"i({i}) should in [0, {Size})"),
+            };
+            set => _[i] = i switch
+            {
+                >= 0 and < Size => value,
+                _ => throw new ArgumentOutOfRangeException($"i({i}) should in [0, {Size})"),
+            };
+        }
+        
+        public byte[] ToArray() => new [] { _[0], _[1], _[2], _[3] };
+        
+        
+        public void UpdateFrom(byte[] array)
+        {
+            if (array.Length != Size)
+            {
+                throw new ArgumentOutOfRangeException($"array size({array.Length}) should == {Size}");
+            }
+            
+            fixed (byte* p = array)
+            {
+                _[0] = p[0];
+                _[1] = p[1];
+                _[2] = p[2];
+                _[3] = p[3];
+            }
+        }
+    }
+    
     public unsafe struct byte_ptrArray4
     {
         public const int Size = 4;
@@ -556,6 +595,45 @@ namespace Sdcb.FFmpeg.Raw
             }
             
             fixed (long* p = array)
+            {
+                _[0] = p[0];
+                _[1] = p[1];
+                _[2] = p[2];
+                _[3] = p[3];
+            }
+        }
+    }
+    
+    public unsafe struct uint_array4
+    {
+        public const int Size = 4;
+        public fixed uint _[4];
+        
+        public uint this[int i]
+        {
+            get => i switch
+            {
+                >= 0 and < Size => _[i],
+                _ => throw new ArgumentOutOfRangeException($"i({i}) should in [0, {Size})"),
+            };
+            set => _[i] = i switch
+            {
+                >= 0 and < Size => value,
+                _ => throw new ArgumentOutOfRangeException($"i({i}) should in [0, {Size})"),
+            };
+        }
+        
+        public uint[] ToArray() => new [] { _[0], _[1], _[2], _[3] };
+        
+        
+        public void UpdateFrom(uint[] array)
+        {
+            if (array.Length != Size)
+            {
+                throw new ArgumentOutOfRangeException($"array size({array.Length}) should == {Size}");
+            }
+            
+            fixed (uint* p = array)
             {
                 _[0] = p[0];
                 _[1] = p[1];
@@ -1202,55 +1280,6 @@ namespace Sdcb.FFmpeg.Raw
                 _22 = p[22];
                 _23 = p[23];
                 _24 = p[24];
-            }
-        }
-    }
-    
-    public unsafe struct byte_array61440
-    {
-        public const int Size = 61440;
-        public fixed byte _[61440];
-        
-        public byte this[int i]
-        {
-            get => i switch
-            {
-                >= 0 and < Size => _[i],
-                _ => throw new ArgumentOutOfRangeException($"i({i}) should in [0, {Size})"),
-            };
-            set => _[i] = i switch
-            {
-                >= 0 and < Size => value,
-                _ => throw new ArgumentOutOfRangeException($"i({i}) should in [0, {Size})"),
-            };
-        }
-        
-        public byte[] ToArray()
-        {
-            fixed (byte_array61440* p = &this)
-            {
-                var a = new byte[Size];
-                for (uint i = 0; i < Size; i++)
-                {
-                    a[i] = p->_[i];
-                }
-                return a;
-            }
-        }
-        
-        public void UpdateFrom(byte[] array)
-        {
-            if (array.Length != Size)
-            {
-                throw new ArgumentOutOfRangeException($"array size({array.Length}) should == {Size}");
-            }
-            
-            fixed (byte* p = array)
-            {
-                for (int i = 0; i < Size; ++i)
-                {
-                    _[i] = p[i];
-                }
             }
         }
     }

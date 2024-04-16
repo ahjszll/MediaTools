@@ -80,6 +80,16 @@ public unsafe partial class FilterLink : SafeHandle
     }
     
     /// <summary>
+    /// <para>agreed upon media format</para>
+    /// <see cref="AVFilterLink.format" />
+    /// </summary>
+    public int Format
+    {
+        get => _ptr->format;
+        set => _ptr->format = value;
+    }
+    
+    /// <summary>
     /// <para>agreed upon image width</para>
     /// <see cref="AVFilterLink.w" />
     /// </summary>
@@ -110,14 +120,23 @@ public unsafe partial class FilterLink : SafeHandle
     }
     
     /// <summary>
-    /// <para>channel layout of current buffer (see libavutil/channel_layout.h)</para>
-    /// <see cref="AVFilterLink.channel_layout" />
+    /// <para>agreed upon YUV color space</para>
+    /// <see cref="AVFilterLink.colorspace" />
     /// </summary>
-    [Obsolete("use ch_layout")]
-    public ulong ChannelLayout
+    public AVColorSpace Colorspace
     {
-        get => _ptr->channel_layout;
-        set => _ptr->channel_layout = value;
+        get => _ptr->colorspace;
+        set => _ptr->colorspace = value;
+    }
+    
+    /// <summary>
+    /// <para>agreed upon YUV color range</para>
+    /// <see cref="AVFilterLink.color_range" />
+    /// </summary>
+    public AVColorRange ColorRange
+    {
+        get => _ptr->color_range;
+        set => _ptr->color_range = value;
     }
     
     /// <summary>
@@ -131,13 +150,13 @@ public unsafe partial class FilterLink : SafeHandle
     }
     
     /// <summary>
-    /// <para>agreed upon media format</para>
-    /// <see cref="AVFilterLink.format" />
+    /// <para>channel layout of current buffer (see libavutil/channel_layout.h)</para>
+    /// <see cref="AVFilterLink.ch_layout" />
     /// </summary>
-    public int Format
+    public AVChannelLayout ChLayout
     {
-        get => _ptr->format;
-        set => _ptr->format = value;
+        get => _ptr->ch_layout;
+        set => _ptr->ch_layout = value;
     }
     
     /// <summary>
@@ -148,16 +167,6 @@ public unsafe partial class FilterLink : SafeHandle
     {
         get => _ptr->time_base;
         set => _ptr->time_base = value;
-    }
-    
-    /// <summary>
-    /// <para>channel layout of current buffer (see libavutil/channel_layout.h)</para>
-    /// <see cref="AVFilterLink.ch_layout" />
-    /// </summary>
-    public AVChannelLayout ChLayout
-    {
-        get => _ptr->ch_layout;
-        set => _ptr->ch_layout = value;
     }
     
     /// <summary>
@@ -178,15 +187,6 @@ public unsafe partial class FilterLink : SafeHandle
     {
         get => _ptr->outcfg;
         set => _ptr->outcfg = value;
-    }
-    
-    /// <summary>
-    /// <see cref="AVFilterLink.init_state" />
-    /// </summary>
-    public AVFilterLink_init_state InitState
-    {
-        get => _ptr->init_state;
-        set => _ptr->init_state = value;
     }
     
     /// <summary>
@@ -218,16 +218,6 @@ public unsafe partial class FilterLink : SafeHandle
     {
         get => _ptr->current_pts_us;
         set => _ptr->current_pts_us = value;
-    }
-    
-    /// <summary>
-    /// <para>Index in the age array.</para>
-    /// <see cref="AVFilterLink.age_index" />
-    /// </summary>
-    public int AgeIndex
-    {
-        get => _ptr->age_index;
-        set => _ptr->age_index = value;
     }
     
     /// <summary>
@@ -301,17 +291,6 @@ public unsafe partial class FilterLink : SafeHandle
     }
     
     /// <summary>
-    /// <para>original type: void*</para>
-    /// <para>A pointer to a FFFramePool struct.</para>
-    /// <see cref="AVFilterLink.frame_pool" />
-    /// </summary>
-    public IntPtr FramePool
-    {
-        get => (IntPtr)_ptr->frame_pool;
-        set => _ptr->frame_pool = (void*)value;
-    }
-    
-    /// <summary>
     /// <para>True if a frame is currently wanted on the output of this filter. Set when ff_request_frame() is called by the output, cleared when a frame is filtered.</para>
     /// <see cref="AVFilterLink.frame_wanted_out" />
     /// </summary>
@@ -331,5 +310,4 @@ public unsafe partial class FilterLink : SafeHandle
         get => BufferRef.FromNativeOrNull(_ptr->hw_frames_ctx, false);
         set => _ptr->hw_frames_ctx = value != null ? (AVBufferRef*)value : null;
     }
-    
 }

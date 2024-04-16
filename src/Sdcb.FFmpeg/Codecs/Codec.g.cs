@@ -118,17 +118,6 @@ public unsafe partial struct Codec
             valGetter: p => *(AVSampleFormat*)p)!;
     
     /// <summary>
-    /// <para>original type: ulong*</para>
-    /// <para>array of support channel layouts, or NULL if unknown. array is terminated by 0</para>
-    /// <see cref="AVCodec.channel_layouts" />
-    /// </summary>
-    public IEnumerable<ulong> ChannelLayouts => NativeUtils.ReadSequence(
-            p: (IntPtr)_ptr->channel_layouts,
-            unitSize: sizeof(ulong),
-            exitCondition: p => *(ulong*)p == default, 
-            valGetter: p => *(ulong*)p)!;
-    
-    /// <summary>
     /// <para>original type: AVClass*</para>
     /// <para>AVClass for the private context</para>
     /// <see cref="AVCodec.priv_class" />

@@ -36,35 +36,6 @@ public unsafe class SampleConverter : SafeHandle
     public long GetDelay(int sourceSampleRate) => swr_get_delay(this, sourceSampleRate);
 
     /// <summary>
-    /// <see cref="swr_alloc_set_opts(SwrContext*, long, AVSampleFormat, int, long, AVSampleFormat, int, int, void*)"/>
-    /// </summary>
-    [Obsolete]
-    public void Reset(
-        long outputChannelLayout, AVSampleFormat outputSampleFormat, int outputSampleRate,
-        long inputChannelLayout, AVSampleFormat inputSampleFormat, int inputSampleRate)
-    {
-        handle = NativeUtils.NotNull((IntPtr)swr_alloc_set_opts(this,
-            outputChannelLayout, outputSampleFormat, outputSampleRate,
-            inputChannelLayout, inputSampleFormat, inputSampleRate,
-            log_offset: 0, log_ctx: null));
-    }
-
-    /// <summary>
-    /// <see cref="swr_alloc_set_opts(SwrContext*, long, AVSampleFormat, int, long, AVSampleFormat, int, int, void*)"/>
-    /// </summary>
-    public void Reset(
-        AVChannelLayout outputChLayout, AVSampleFormat outputSampleFormat, int outputSampleRate,
-        AVChannelLayout inputChLayout, AVSampleFormat inputSampleFormat, int inputSampleRate)
-    {
-        SwrContext* ptr = (SwrContext*)handle;
-        swr_alloc_set_opts2(&ptr,
-            &outputChLayout, outputSampleFormat, outputSampleRate,
-            &inputChLayout, inputSampleFormat, inputSampleRate,
-            log_offset: 0, log_ctx: null).ThrowIfError();
-        handle = (IntPtr)ptr;
-    }
-
-    /// <summary>
     /// <see cref="swr_is_initialized(SwrContext*)"/>
     /// </summary>
     public bool Initialized => swr_is_initialized(this) != 0 ? true : false;

@@ -127,14 +127,13 @@ public unsafe partial class FilterContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>original type: AVFilterInternal*</para>
-    /// <para>An opaque struct for libavfilter internal use.</para>
-    /// <see cref="AVFilterContext.@internal" />
+    /// <para>Max number of threads allowed in this filter instance. If &lt;= 0, its value is ignored. Overrides global number of threads set per filter graph.</para>
+    /// <see cref="AVFilterContext.nb_threads" />
     /// </summary>
-    public IntPtr Internal
+    public int NbThreads
     {
-        get => (IntPtr)_ptr->@internal;
-        set => _ptr->@internal = (AVFilterInternal*)value;
+        get => _ptr->nb_threads;
+        set => _ptr->nb_threads = value;
     }
     
     /// <summary>
@@ -197,16 +196,6 @@ public unsafe partial class FilterContext : SafeHandle
     {
         get => BufferRef.FromNativeOrNull(_ptr->hw_device_ctx, false);
         set => _ptr->hw_device_ctx = value != null ? (AVBufferRef*)value : null;
-    }
-    
-    /// <summary>
-    /// <para>Max number of threads allowed in this filter instance. If &lt;= 0, its value is ignored. Overrides global number of threads set per filter graph.</para>
-    /// <see cref="AVFilterContext.nb_threads" />
-    /// </summary>
-    public int NbThreads
-    {
-        get => _ptr->nb_threads;
-        set => _ptr->nb_threads = value;
     }
     
     /// <summary>

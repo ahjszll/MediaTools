@@ -106,7 +106,7 @@ public class Examples : IDisposable
             Stopwatch sw = Stopwatch.StartNew();
             sws.ConvertFrame(frame, dest);
             sw.Stop();
-            _console.WriteLine($"dts: {frame.PktDts}, pts: {frame.Pts}, cpn: {frame.CodedPictureNumber}, sws-elapse: {sw.Elapsed.TotalMilliseconds:F2}ms");
+            _console.WriteLine($"dts: {frame.PktDts}, pts: {frame.Pts}, sws-elapse: {sw.Elapsed.TotalMilliseconds:F2}ms");
         }
     }
 

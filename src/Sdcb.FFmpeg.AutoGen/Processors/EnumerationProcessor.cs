@@ -34,7 +34,9 @@ namespace Sdcb.FFmpeg.AutoGen.Processors
             name = string.IsNullOrEmpty(enumeration.Name) ? name : enumeration.Name;
             if (_context.IsKnownUnitName(name)) return;
 
-            string commonPrefix = StringExtensions.CommonPrefixOf(enumeration.Items.Select(x => x.Name));
+            string commonPrefix = StringExtensions.CommonPrefixOf(enumeration
+                .Items.Select(x => x.Name)
+                .Where(x => !x.EndsWith("_NB")));
             var definition = new EnumerationDefinition
             {
                 Name = name,
@@ -45,7 +47,7 @@ namespace Sdcb.FFmpeg.AutoGen.Processors
                     .Select(x =>
                         new EnumerationItem
                         {
-                            Name = StringExtensions.EnumNameTransform(x.Name[commonPrefix.Length..]),
+                            Name = StringExtensions.EnumNameTransform(x.Name.StartsWith(commonPrefix) ? x.Name[commonPrefix.Length..] : x.Name),
                             RawName = x.Name, 
                             Value = ConvertValue(x.Value, enumeration.BuiltinType.Type).ToString(),
                             XmlDocument = x.Comment?.BriefText

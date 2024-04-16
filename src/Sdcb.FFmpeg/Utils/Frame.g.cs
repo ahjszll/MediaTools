@@ -163,26 +163,6 @@ public unsafe partial class Frame : SafeHandle
     }
     
     /// <summary>
-    /// <para>picture number in bitstream order</para>
-    /// <see cref="AVFrame.coded_picture_number" />
-    /// </summary>
-    public int CodedPictureNumber
-    {
-        get => _ptr->coded_picture_number;
-        set => _ptr->coded_picture_number = value;
-    }
-    
-    /// <summary>
-    /// <para>picture number in display order</para>
-    /// <see cref="AVFrame.display_picture_number" />
-    /// </summary>
-    public int DisplayPictureNumber
-    {
-        get => _ptr->display_picture_number;
-        set => _ptr->display_picture_number = value;
-    }
-    
-    /// <summary>
     /// <para>quality (between 1 (good) and FF_LAMBDA_MAX (bad))</para>
     /// <see cref="AVFrame.quality" />
     /// </summary>
@@ -246,17 +226,6 @@ public unsafe partial class Frame : SafeHandle
     }
     
     /// <summary>
-    /// <para>reordered opaque 64 bits (generally an integer or a double precision float PTS but can be anything). The user sets AVCodecContext.reordered_opaque to represent the input at that time, the decoder reorders values as needed and sets AVFrame.reordered_opaque to exactly one of the values provided by the user through AVCodecContext.reordered_opaque</para>
-    /// <see cref="AVFrame.reordered_opaque" />
-    /// </summary>
-    [Obsolete("Use AV_CODEC_FLAG_COPY_OPAQUE instead")]
-    public long ReorderedOpaque
-    {
-        get => _ptr->reordered_opaque;
-        set => _ptr->reordered_opaque = value;
-    }
-    
-    /// <summary>
     /// <para>Sample rate of the audio data.</para>
     /// <see cref="AVFrame.sample_rate" />
     /// </summary>
@@ -264,17 +233,6 @@ public unsafe partial class Frame : SafeHandle
     {
         get => _ptr->sample_rate;
         set => _ptr->sample_rate = value;
-    }
-    
-    /// <summary>
-    /// <para>Channel layout of the audio data.</para>
-    /// <see cref="AVFrame.channel_layout" />
-    /// </summary>
-    [Obsolete("use ch_layout instead")]
-    public ulong ChannelLayout
-    {
-        get => _ptr->channel_layout;
-        set => _ptr->channel_layout = value;
     }
     
     /// <summary>
@@ -391,17 +349,6 @@ public unsafe partial class Frame : SafeHandle
     }
     
     /// <summary>
-    /// <para>duration of the corresponding packet, expressed in AVStream-&gt;time_base units, 0 if unknown. - encoding: unused - decoding: Read by user.</para>
-    /// <see cref="AVFrame.pkt_duration" />
-    /// </summary>
-    [Obsolete("use duration instead")]
-    public long PktDuration
-    {
-        get => _ptr->pkt_duration;
-        set => _ptr->pkt_duration = value;
-    }
-    
-    /// <summary>
     /// <para>original type: AVDictionary*</para>
     /// <para>metadata. - encoding: Set by user. - decoding: Set by libavcodec.</para>
     /// <see cref="AVFrame.metadata" />
@@ -420,17 +367,6 @@ public unsafe partial class Frame : SafeHandle
     {
         get => _ptr->decode_error_flags;
         set => _ptr->decode_error_flags = value;
-    }
-    
-    /// <summary>
-    /// <para>number of audio channels, only used for audio. - encoding: unused - decoding: Read by user.</para>
-    /// <see cref="AVFrame.channels" />
-    /// </summary>
-    [Obsolete("use ch_layout instead")]
-    public int Channels
-    {
-        get => _ptr->channels;
-        set => _ptr->channels = value;
     }
     
     /// <summary>

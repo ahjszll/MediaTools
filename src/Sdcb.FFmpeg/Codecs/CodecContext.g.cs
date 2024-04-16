@@ -133,36 +133,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>number of bits the bitstream is allowed to diverge from the reference. the reference can be CBR (for CBR pass1) or VBR (for pass2) - encoding: Set by user; unused for constant quantizer encoding. - decoding: unused</para>
-    /// <see cref="AVCodecContext.bit_rate_tolerance" />
-    /// </summary>
-    public int BitRateTolerance
-    {
-        get => _ptr->bit_rate_tolerance;
-        set => _ptr->bit_rate_tolerance = value;
-    }
-    
-    /// <summary>
-    /// <para>Global quality for codecs which cannot change it per frame. This should be proportional to MPEG-1/2/4 qscale. - encoding: Set by user. - decoding: unused</para>
-    /// <see cref="AVCodecContext.global_quality" />
-    /// </summary>
-    public int GlobalQuality
-    {
-        get => _ptr->global_quality;
-        set => _ptr->global_quality = value;
-    }
-    
-    /// <summary>
-    /// <para>- encoding: Set by user. - decoding: unused</para>
-    /// <see cref="AVCodecContext.compression_level" />
-    /// </summary>
-    public int CompressionLevel
-    {
-        get => _ptr->compression_level;
-        set => _ptr->compression_level = value;
-    }
-    
-    /// <summary>
     /// <para>original type: int</para>
     /// <para>AV_CODEC_FLAG_*. - encoding: Set by user. - decoding: Set by user.</para>
     /// <see cref="AVCodecContext.flags" />
@@ -211,6 +181,26 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->time_base;
         set => _ptr->time_base = value;
+    }
+    
+    /// <summary>
+    /// <para>Timebase in which pkt_dts/pts and AVPacket.dts/pts are expressed. - encoding: unused. - decoding: set by user.</para>
+    /// <see cref="AVCodecContext.pkt_timebase" />
+    /// </summary>
+    public AVRational PktTimebase
+    {
+        get => _ptr->pkt_timebase;
+        set => _ptr->pkt_timebase = value;
+    }
+    
+    /// <summary>
+    /// <para>- decoding: For codecs that store a framerate value in the compressed bitstream, the decoder may export it here. { 0, 1} when unknown. - encoding: May be used to signal the framerate of CFR content to an encoder.</para>
+    /// <see cref="AVCodecContext.framerate" />
+    /// </summary>
+    public AVRational Framerate
+    {
+        get => _ptr->framerate;
+        set => _ptr->framerate = value;
     }
     
     /// <summary>
@@ -275,13 +265,13 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>the number of pictures in a group of pictures, or 0 for intra_only - encoding: Set by user. - decoding: unused</para>
-    /// <see cref="AVCodecContext.gop_size" />
+    /// <para>sample aspect ratio (0 if unknown) That is the width of a pixel divided by the height of the pixel. Numerator and denominator must be relatively prime and smaller than 256 for some video standards. - encoding: Set by user. - decoding: Set by libavcodec.</para>
+    /// <see cref="AVCodecContext.sample_aspect_ratio" />
     /// </summary>
-    public int GopSize
+    public AVRational SampleAspectRatio
     {
-        get => _ptr->gop_size;
-        set => _ptr->gop_size = value;
+        get => _ptr->sample_aspect_ratio;
+        set => _ptr->sample_aspect_ratio = value;
     }
     
     /// <summary>
@@ -292,6 +282,106 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->pix_fmt;
         set => _ptr->pix_fmt = value;
+    }
+    
+    /// <summary>
+    /// <para>Nominal unaccelerated pixel format, see AV_PIX_FMT_xxx. - encoding: unused. - decoding: Set by libavcodec before calling get_format()</para>
+    /// <see cref="AVCodecContext.sw_pix_fmt" />
+    /// </summary>
+    public AVPixelFormat SwPixelFormat
+    {
+        get => _ptr->sw_pix_fmt;
+        set => _ptr->sw_pix_fmt = value;
+    }
+    
+    /// <summary>
+    /// <para>Chromaticity coordinates of the source primaries. - encoding: Set by user - decoding: Set by libavcodec</para>
+    /// <see cref="AVCodecContext.color_primaries" />
+    /// </summary>
+    public AVColorPrimaries ColorPrimaries
+    {
+        get => _ptr->color_primaries;
+        set => _ptr->color_primaries = value;
+    }
+    
+    /// <summary>
+    /// <para>Color Transfer Characteristic. - encoding: Set by user - decoding: Set by libavcodec</para>
+    /// <see cref="AVCodecContext.color_trc" />
+    /// </summary>
+    public AVColorTransferCharacteristic ColorTrc
+    {
+        get => _ptr->color_trc;
+        set => _ptr->color_trc = value;
+    }
+    
+    /// <summary>
+    /// <para>YUV colorspace type. - encoding: Set by user - decoding: Set by libavcodec</para>
+    /// <see cref="AVCodecContext.colorspace" />
+    /// </summary>
+    public AVColorSpace Colorspace
+    {
+        get => _ptr->colorspace;
+        set => _ptr->colorspace = value;
+    }
+    
+    /// <summary>
+    /// <para>MPEG vs JPEG YUV range. - encoding: Set by user to override the default output color range value, If not specified, libavcodec sets the color range depending on the output format. - decoding: Set by libavcodec, can be set by the user to propagate the color range to components reading from the decoder context.</para>
+    /// <see cref="AVCodecContext.color_range" />
+    /// </summary>
+    public AVColorRange ColorRange
+    {
+        get => _ptr->color_range;
+        set => _ptr->color_range = value;
+    }
+    
+    /// <summary>
+    /// <para>This defines the location of chroma samples. - encoding: Set by user - decoding: Set by libavcodec</para>
+    /// <see cref="AVCodecContext.chroma_sample_location" />
+    /// </summary>
+    public AVChromaLocation ChromaSampleLocation
+    {
+        get => _ptr->chroma_sample_location;
+        set => _ptr->chroma_sample_location = value;
+    }
+    
+    /// <summary>
+    /// <para>Field order - encoding: set by libavcodec - decoding: Set by user.</para>
+    /// <see cref="AVCodecContext.field_order" />
+    /// </summary>
+    public AVFieldOrder FieldOrder
+    {
+        get => _ptr->field_order;
+        set => _ptr->field_order = value;
+    }
+    
+    /// <summary>
+    /// <para>number of reference frames - encoding: Set by user. - decoding: Set by lavc.</para>
+    /// <see cref="AVCodecContext.refs" />
+    /// </summary>
+    public int Refs
+    {
+        get => _ptr->refs;
+        set => _ptr->refs = value;
+    }
+    
+    /// <summary>
+    /// <para>Size of the frame reordering buffer in the decoder. For MPEG-2 it is 1 IPB or 0 low delay IP. - encoding: Set by libavcodec. - decoding: Set by libavcodec.</para>
+    /// <see cref="AVCodecContext.has_b_frames" />
+    /// </summary>
+    public int HasBFrames
+    {
+        get => _ptr->has_b_frames;
+        set => _ptr->has_b_frames = value;
+    }
+    
+    /// <summary>
+    /// <para>slice flags - encoding: unused - decoding: Set by user.</para>
+    /// <see cref="AVCodecContext.slice_flags" />
+    /// </summary>
+    public int SliceFlags
+    {
+        get => _ptr->slice_flags;
+        set => _ptr->slice_flags = value;
     }
     
     /// <summary>
@@ -322,16 +412,6 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->b_quant_offset;
         set => _ptr->b_quant_offset = value;
-    }
-    
-    /// <summary>
-    /// <para>Size of the frame reordering buffer in the decoder. For MPEG-2 it is 1 IPB or 0 low delay IP. - encoding: Set by libavcodec. - decoding: Set by libavcodec.</para>
-    /// <see cref="AVCodecContext.has_b_frames" />
-    /// </summary>
-    public int HasBFrames
-    {
-        get => _ptr->has_b_frames;
-        set => _ptr->has_b_frames = value;
     }
     
     /// <summary>
@@ -405,33 +485,13 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>slice count - encoding: Set by libavcodec. - decoding: Set by user (or 0).</para>
-    /// <see cref="AVCodecContext.slice_count" />
+    /// <para>noise vs. sse weight for the nsse comparison function - encoding: Set by user. - decoding: unused</para>
+    /// <see cref="AVCodecContext.nsse_weight" />
     /// </summary>
-    public int SliceCount
+    public int NsseWeight
     {
-        get => _ptr->slice_count;
-        set => _ptr->slice_count = value;
-    }
-    
-    /// <summary>
-    /// <para>slice offsets in the frame in bytes - encoding: Set/allocated by libavcodec. - decoding: Set/allocated by user (or NULL).</para>
-    /// <see cref="AVCodecContext.slice_offset" />
-    /// </summary>
-    public int* SliceOffset
-    {
-        get => _ptr->slice_offset;
-        set => _ptr->slice_offset = value;
-    }
-    
-    /// <summary>
-    /// <para>sample aspect ratio (0 if unknown) That is the width of a pixel divided by the height of the pixel. Numerator and denominator must be relatively prime and smaller than 256 for some video standards. - encoding: Set by user. - decoding: Set by libavcodec.</para>
-    /// <see cref="AVCodecContext.sample_aspect_ratio" />
-    /// </summary>
-    public AVRational SampleAspectRatio
-    {
-        get => _ptr->sample_aspect_ratio;
-        set => _ptr->sample_aspect_ratio = value;
+        get => _ptr->nsse_weight;
+        set => _ptr->nsse_weight = value;
     }
     
     /// <summary>
@@ -535,16 +595,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>slice flags - encoding: unused - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.slice_flags" />
-    /// </summary>
-    public int SliceFlags
-    {
-        get => _ptr->slice_flags;
-        set => _ptr->slice_flags = value;
-    }
-    
-    /// <summary>
     /// <para>macroblock decision mode - encoding: Set by user. - decoding: unused</para>
     /// <see cref="AVCodecContext.mb_decision" />
     /// </summary>
@@ -575,6 +625,16 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
+    /// <para>custom intra quantization matrix - encoding: Set by user, can be NULL. - decoding: unused.</para>
+    /// <see cref="AVCodecContext.chroma_intra_matrix" />
+    /// </summary>
+    public ushort* ChromaIntraMatrix
+    {
+        get => _ptr->chroma_intra_matrix;
+        set => _ptr->chroma_intra_matrix = value;
+    }
+    
+    /// <summary>
     /// <para>precision of the intra DC coefficient - 8 - encoding: Set by user. - decoding: Set by libavcodec</para>
     /// <see cref="AVCodecContext.intra_dc_precision" />
     /// </summary>
@@ -582,26 +642,6 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->intra_dc_precision;
         set => _ptr->intra_dc_precision = value;
-    }
-    
-    /// <summary>
-    /// <para>Number of macroblock rows at the top which are skipped. - encoding: unused - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.skip_top" />
-    /// </summary>
-    public int SkipTop
-    {
-        get => _ptr->skip_top;
-        set => _ptr->skip_top = value;
-    }
-    
-    /// <summary>
-    /// <para>Number of macroblock rows at the bottom which are skipped. - encoding: unused - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.skip_bottom" />
-    /// </summary>
-    public int SkipBottom
-    {
-        get => _ptr->skip_bottom;
-        set => _ptr->skip_bottom = value;
     }
     
     /// <summary>
@@ -645,13 +685,13 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>number of reference frames - encoding: Set by user. - decoding: Set by lavc.</para>
-    /// <see cref="AVCodecContext.refs" />
+    /// <para>the number of pictures in a group of pictures, or 0 for intra_only - encoding: Set by user. - decoding: unused</para>
+    /// <see cref="AVCodecContext.gop_size" />
     /// </summary>
-    public int Refs
+    public int GopSize
     {
-        get => _ptr->refs;
-        set => _ptr->refs = value;
+        get => _ptr->gop_size;
+        set => _ptr->gop_size = value;
     }
     
     /// <summary>
@@ -665,56 +705,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Chromaticity coordinates of the source primaries. - encoding: Set by user - decoding: Set by libavcodec</para>
-    /// <see cref="AVCodecContext.color_primaries" />
-    /// </summary>
-    public AVColorPrimaries ColorPrimaries
-    {
-        get => _ptr->color_primaries;
-        set => _ptr->color_primaries = value;
-    }
-    
-    /// <summary>
-    /// <para>Color Transfer Characteristic. - encoding: Set by user - decoding: Set by libavcodec</para>
-    /// <see cref="AVCodecContext.color_trc" />
-    /// </summary>
-    public AVColorTransferCharacteristic ColorTrc
-    {
-        get => _ptr->color_trc;
-        set => _ptr->color_trc = value;
-    }
-    
-    /// <summary>
-    /// <para>YUV colorspace type. - encoding: Set by user - decoding: Set by libavcodec</para>
-    /// <see cref="AVCodecContext.colorspace" />
-    /// </summary>
-    public AVColorSpace Colorspace
-    {
-        get => _ptr->colorspace;
-        set => _ptr->colorspace = value;
-    }
-    
-    /// <summary>
-    /// <para>MPEG vs JPEG YUV range. - encoding: Set by user to override the default output color range value, If not specified, libavcodec sets the color range depending on the output format. - decoding: Set by libavcodec, can be set by the user to propagate the color range to components reading from the decoder context.</para>
-    /// <see cref="AVCodecContext.color_range" />
-    /// </summary>
-    public AVColorRange ColorRange
-    {
-        get => _ptr->color_range;
-        set => _ptr->color_range = value;
-    }
-    
-    /// <summary>
-    /// <para>This defines the location of chroma samples. - encoding: Set by user - decoding: Set by libavcodec</para>
-    /// <see cref="AVCodecContext.chroma_sample_location" />
-    /// </summary>
-    public AVChromaLocation ChromaSampleLocation
-    {
-        get => _ptr->chroma_sample_location;
-        set => _ptr->chroma_sample_location = value;
-    }
-    
-    /// <summary>
     /// <para>Number of slices. Indicates number of picture subdivisions. Used for parallelized decoding. - encoding: Set by user - decoding: unused</para>
     /// <see cref="AVCodecContext.slices" />
     /// </summary>
@@ -722,16 +712,6 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->slices;
         set => _ptr->slices = value;
-    }
-    
-    /// <summary>
-    /// <para>Field order - encoding: set by libavcodec - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.field_order" />
-    /// </summary>
-    public AVFieldOrder FieldOrder
-    {
-        get => _ptr->field_order;
-        set => _ptr->field_order = value;
     }
     
     /// <summary>
@@ -745,17 +725,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>number of audio channels</para>
-    /// <see cref="AVCodecContext.channels" />
-    /// </summary>
-    [Obsolete("use ch_layout.nb_channels")]
-    public int Channels
-    {
-        get => _ptr->channels;
-        set => _ptr->channels = value;
-    }
-    
-    /// <summary>
     /// <para>sample format</para>
     /// <see cref="AVCodecContext.sample_fmt" />
     /// </summary>
@@ -766,6 +735,16 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
+    /// <para>Audio channel layout. - encoding: must be set by the caller, to one of AVCodec.ch_layouts. - decoding: may be set by the caller if known e.g. from the container. The decoder can then override during decoding as needed.</para>
+    /// <see cref="AVCodecContext.ch_layout" />
+    /// </summary>
+    public AVChannelLayout ChLayout
+    {
+        get => _ptr->ch_layout;
+        set => _ptr->ch_layout = value;
+    }
+    
+    /// <summary>
     /// <para>Number of samples per channel in an audio frame.</para>
     /// <see cref="AVCodecContext.frame_size" />
     /// </summary>
@@ -773,17 +752,6 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->frame_size;
         set => _ptr->frame_size = value;
-    }
-    
-    /// <summary>
-    /// <para>Frame counter, set by libavcodec.</para>
-    /// <see cref="AVCodecContext.frame_number" />
-    /// </summary>
-    [Obsolete("use frame_num instead")]
-    public int FrameNumber
-    {
-        get => _ptr->frame_number;
-        set => _ptr->frame_number = value;
     }
     
     /// <summary>
@@ -807,28 +775,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Audio channel layout. - encoding: set by user. - decoding: set by user, may be overwritten by libavcodec.</para>
-    /// <see cref="AVCodecContext.channel_layout" />
-    /// </summary>
-    [Obsolete("use ch_layout")]
-    public ulong ChannelLayout
-    {
-        get => _ptr->channel_layout;
-        set => _ptr->channel_layout = value;
-    }
-    
-    /// <summary>
-    /// <para>Request decoder to use this channel layout if it can (0 for default) - encoding: unused - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.request_channel_layout" />
-    /// </summary>
-    [Obsolete("use \"downmix\" codec private option")]
-    public ulong RequestChannelLayout
-    {
-        get => _ptr->request_channel_layout;
-        set => _ptr->request_channel_layout = value;
-    }
-    
-    /// <summary>
     /// <para>Type of service that the audio stream conveys. - encoding: Set by user. - decoding: Set by libavcodec.</para>
     /// <see cref="AVCodecContext.audio_service_type" />
     /// </summary>
@@ -846,6 +792,66 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->request_sample_fmt;
         set => _ptr->request_sample_fmt = value;
+    }
+    
+    /// <summary>
+    /// <para>Audio only. The number of "priming" samples (padding) inserted by the encoder at the beginning of the audio. I.e. this number of leading decoded samples must be discarded by the caller to get the original audio without leading padding.</para>
+    /// <see cref="AVCodecContext.initial_padding" />
+    /// </summary>
+    public int InitialPadding
+    {
+        get => _ptr->initial_padding;
+        set => _ptr->initial_padding = value;
+    }
+    
+    /// <summary>
+    /// <para>Audio only. The amount of padding (in samples) appended by the encoder to the end of the audio. I.e. this number of decoded samples must be discarded by the caller from the end of the stream to get the original audio without any trailing padding.</para>
+    /// <see cref="AVCodecContext.trailing_padding" />
+    /// </summary>
+    public int TrailingPadding
+    {
+        get => _ptr->trailing_padding;
+        set => _ptr->trailing_padding = value;
+    }
+    
+    /// <summary>
+    /// <para>Number of samples to skip after a discontinuity - decoding: unused - encoding: set by libavcodec</para>
+    /// <see cref="AVCodecContext.seek_preroll" />
+    /// </summary>
+    public int SeekPreroll
+    {
+        get => _ptr->seek_preroll;
+        set => _ptr->seek_preroll = value;
+    }
+    
+    /// <summary>
+    /// <para>number of bits the bitstream is allowed to diverge from the reference. the reference can be CBR (for CBR pass1) or VBR (for pass2) - encoding: Set by user; unused for constant quantizer encoding. - decoding: unused</para>
+    /// <see cref="AVCodecContext.bit_rate_tolerance" />
+    /// </summary>
+    public int BitRateTolerance
+    {
+        get => _ptr->bit_rate_tolerance;
+        set => _ptr->bit_rate_tolerance = value;
+    }
+    
+    /// <summary>
+    /// <para>Global quality for codecs which cannot change it per frame. This should be proportional to MPEG-1/2/4 qscale. - encoding: Set by user. - decoding: unused</para>
+    /// <see cref="AVCodecContext.global_quality" />
+    /// </summary>
+    public int GlobalQuality
+    {
+        get => _ptr->global_quality;
+        set => _ptr->global_quality = value;
+    }
+    
+    /// <summary>
+    /// <para>- encoding: Set by user. - decoding: unused</para>
+    /// <see cref="AVCodecContext.compression_level" />
+    /// </summary>
+    public int CompressionLevel
+    {
+        get => _ptr->compression_level;
+        set => _ptr->compression_level = value;
     }
     
     /// <summary>
@@ -1060,17 +1066,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>opaque 64-bit number (generally a PTS) that will be reordered and output in AVFrame.reordered_opaque - encoding: Set by libavcodec to the reordered_opaque of the input frame corresponding to the last returned packet. Only supported by encoders with the AV_CODEC_CAP_ENCODER_REORDERED_OPAQUE capability. - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.reordered_opaque" />
-    /// </summary>
-    [Obsolete("Use AV_CODEC_FLAG_COPY_OPAQUE instead")]
-    public long ReorderedOpaque
-    {
-        get => _ptr->reordered_opaque;
-        set => _ptr->reordered_opaque = value;
-    }
-    
-    /// <summary>
     /// <para>Hardware accelerator in use - encoding: unused. - decoding: Set by libavcodec</para>
     /// <see cref="AVCodecContext.hwaccel" />
     /// </summary>
@@ -1089,6 +1084,48 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => (IntPtr)_ptr->hwaccel_context;
         set => _ptr->hwaccel_context = (void*)value;
+    }
+    
+    /// <summary>
+    /// <para>original type: AVBufferRef*</para>
+    /// <para>A reference to the AVHWFramesContext describing the input (for encoding) or output (decoding) frames. The reference is set by the caller and afterwards owned (and freed) by libavcodec - it should never be read by the caller after being set.</para>
+    /// <see cref="AVCodecContext.hw_frames_ctx" />
+    /// </summary>
+    public BufferRef? HwFramesContext
+    {
+        get => BufferRef.FromNativeOrNull(_ptr->hw_frames_ctx, false);
+        set => _ptr->hw_frames_ctx = value != null ? (AVBufferRef*)value : null;
+    }
+    
+    /// <summary>
+    /// <para>original type: AVBufferRef*</para>
+    /// <para>A reference to the AVHWDeviceContext describing the device which will be used by a hardware encoder/decoder. The reference is set by the caller and afterwards owned (and freed) by libavcodec.</para>
+    /// <see cref="AVCodecContext.hw_device_ctx" />
+    /// </summary>
+    public BufferRef? HwDeviceContext
+    {
+        get => BufferRef.FromNativeOrNull(_ptr->hw_device_ctx, false);
+        set => _ptr->hw_device_ctx = value != null ? (AVBufferRef*)value : null;
+    }
+    
+    /// <summary>
+    /// <para>Bit set of AV_HWACCEL_FLAG_* flags, which affect hardware accelerated decoding (if active). - encoding: unused - decoding: Set by user (either before avcodec_open2(), or in the AVCodecContext.get_format callback)</para>
+    /// <see cref="AVCodecContext.hwaccel_flags" />
+    /// </summary>
+    public int HwaccelFlags
+    {
+        get => _ptr->hwaccel_flags;
+        set => _ptr->hwaccel_flags = value;
+    }
+    
+    /// <summary>
+    /// <para>Video decoding only. Sets the number of extra hardware frames which the decoder will allocate for use by the caller. This must be set before avcodec_open2() is called.</para>
+    /// <see cref="AVCodecContext.extra_hw_frames" />
+    /// </summary>
+    public int ExtraHwFrames
+    {
+        get => _ptr->extra_hw_frames;
+        set => _ptr->extra_hw_frames = value;
     }
     
     /// <summary>
@@ -1141,16 +1178,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>low resolution decoding, 1-&gt; 1/2 size, 2-&gt;1/4 size - encoding: unused - decoding: Set by user.</para>
-    /// <see cref="AVCodecContext.lowres" />
-    /// </summary>
-    public int Lowres
-    {
-        get => _ptr->lowres;
-        set => _ptr->lowres = value;
-    }
-    
-    /// <summary>
     /// <para>thread count is used to decide how many independent tasks should be passed to execute() - encoding: Set by user. - decoding: Set by user.</para>
     /// <see cref="AVCodecContext.thread_count" />
     /// </summary>
@@ -1181,16 +1208,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>noise vs. sse weight for the nsse comparison function - encoding: Set by user. - decoding: unused</para>
-    /// <see cref="AVCodecContext.nsse_weight" />
-    /// </summary>
-    public int NsseWeight
-    {
-        get => _ptr->nsse_weight;
-        set => _ptr->nsse_weight = value;
-    }
-    
-    /// <summary>
     /// <para>profile - encoding: Set by user. - decoding: Set by libavcodec. See the AV_PROFILE_* defines in defs.h.</para>
     /// <see cref="AVCodecContext.profile" />
     /// </summary>
@@ -1208,6 +1225,16 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->level;
         set => _ptr->level = value;
+    }
+    
+    /// <summary>
+    /// <para>Properties of the stream that gets decoded - encoding: unused - decoding: set by libavcodec</para>
+    /// <see cref="AVCodecContext.properties" />
+    /// </summary>
+    public uint Properties
+    {
+        get => _ptr->properties;
+        set => _ptr->properties = value;
     }
     
     /// <summary>
@@ -1241,63 +1268,43 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>original type: byte*</para>
-    /// <para>Header containing style information for text subtitles. For SUBTITLE_ASS subtitle type, it should contain the whole ASS [Script Info] and [V4+ Styles] section, plus the [Events] line and the Format line following. It shouldn't include any Dialogue line. - encoding: Set/allocated/freed by user (before avcodec_open2()) - decoding: Set/allocated/freed by libavcodec (by avcodec_open2())</para>
-    /// <see cref="AVCodecContext.subtitle_header" />
+    /// <para>Skip processing alpha if supported by codec. Note that if the format uses pre-multiplied alpha (common with VP6, and recommended due to better video quality/compression) the image will look as if alpha-blended onto a black background. However for formats that do not use pre-multiplied alpha there might be serious artefacts (though e.g. libswscale currently assumes pre-multiplied alpha anyway).</para>
+    /// <see cref="AVCodecContext.skip_alpha" />
     /// </summary>
-    public IntPtr SubtitleHeader
+    public int SkipAlpha
     {
-        get => (IntPtr)_ptr->subtitle_header;
-        set => _ptr->subtitle_header = (byte*)value;
+        get => _ptr->skip_alpha;
+        set => _ptr->skip_alpha = value;
     }
     
     /// <summary>
-    /// <see cref="AVCodecContext.subtitle_header_size" />
+    /// <para>Number of macroblock rows at the top which are skipped. - encoding: unused - decoding: Set by user.</para>
+    /// <see cref="AVCodecContext.skip_top" />
     /// </summary>
-    public int SubtitleHeaderSize
+    public int SkipTop
     {
-        get => _ptr->subtitle_header_size;
-        set => _ptr->subtitle_header_size = value;
+        get => _ptr->skip_top;
+        set => _ptr->skip_top = value;
     }
     
     /// <summary>
-    /// <para>Audio only. The number of "priming" samples (padding) inserted by the encoder at the beginning of the audio. I.e. this number of leading decoded samples must be discarded by the caller to get the original audio without leading padding.</para>
-    /// <see cref="AVCodecContext.initial_padding" />
+    /// <para>Number of macroblock rows at the bottom which are skipped. - encoding: unused - decoding: Set by user.</para>
+    /// <see cref="AVCodecContext.skip_bottom" />
     /// </summary>
-    public int InitialPadding
+    public int SkipBottom
     {
-        get => _ptr->initial_padding;
-        set => _ptr->initial_padding = value;
+        get => _ptr->skip_bottom;
+        set => _ptr->skip_bottom = value;
     }
     
     /// <summary>
-    /// <para>- decoding: For codecs that store a framerate value in the compressed bitstream, the decoder may export it here. { 0, 1} when unknown. - encoding: May be used to signal the framerate of CFR content to an encoder.</para>
-    /// <see cref="AVCodecContext.framerate" />
+    /// <para>low resolution decoding, 1-&gt; 1/2 size, 2-&gt;1/4 size - encoding: unused - decoding: Set by user.</para>
+    /// <see cref="AVCodecContext.lowres" />
     /// </summary>
-    public AVRational Framerate
+    public int Lowres
     {
-        get => _ptr->framerate;
-        set => _ptr->framerate = value;
-    }
-    
-    /// <summary>
-    /// <para>Nominal unaccelerated pixel format, see AV_PIX_FMT_xxx. - encoding: unused. - decoding: Set by libavcodec before calling get_format()</para>
-    /// <see cref="AVCodecContext.sw_pix_fmt" />
-    /// </summary>
-    public AVPixelFormat SwPixelFormat
-    {
-        get => _ptr->sw_pix_fmt;
-        set => _ptr->sw_pix_fmt = value;
-    }
-    
-    /// <summary>
-    /// <para>Timebase in which pkt_dts/pts and AVPacket.dts/pts are expressed. - encoding: unused. - decoding: set by user.</para>
-    /// <see cref="AVCodecContext.pkt_timebase" />
-    /// </summary>
-    public AVRational PktTimebase
-    {
-        get => _ptr->pkt_timebase;
-        set => _ptr->pkt_timebase = value;
+        get => _ptr->lowres;
+        set => _ptr->lowres = value;
     }
     
     /// <summary>
@@ -1308,46 +1315,6 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->codec_descriptor;
         set => _ptr->codec_descriptor = value;
-    }
-    
-    /// <summary>
-    /// <para>Current statistics for PTS correction. - decoding: maintained and used by libavcodec, not intended to be used by user apps - encoding: unused</para>
-    /// <see cref="AVCodecContext.pts_correction_num_faulty_pts" />
-    /// </summary>
-    public long PtsCorrectionNumFaultyPts
-    {
-        get => _ptr->pts_correction_num_faulty_pts;
-        set => _ptr->pts_correction_num_faulty_pts = value;
-    }
-    
-    /// <summary>
-    /// <para>Number of incorrect PTS values so far</para>
-    /// <see cref="AVCodecContext.pts_correction_num_faulty_dts" />
-    /// </summary>
-    public long PtsCorrectionNumFaultyDts
-    {
-        get => _ptr->pts_correction_num_faulty_dts;
-        set => _ptr->pts_correction_num_faulty_dts = value;
-    }
-    
-    /// <summary>
-    /// <para>Number of incorrect DTS values so far</para>
-    /// <see cref="AVCodecContext.pts_correction_last_pts" />
-    /// </summary>
-    public long PtsCorrectionLastPts
-    {
-        get => _ptr->pts_correction_last_pts;
-        set => _ptr->pts_correction_last_pts = value;
-    }
-    
-    /// <summary>
-    /// <para>PTS of the last frame</para>
-    /// <see cref="AVCodecContext.pts_correction_last_dts" />
-    /// </summary>
-    public long PtsCorrectionLastDts
-    {
-        get => _ptr->pts_correction_last_dts;
-        set => _ptr->pts_correction_last_dts = value;
     }
     
     /// <summary>
@@ -1372,33 +1339,23 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Skip processing alpha if supported by codec. Note that if the format uses pre-multiplied alpha (common with VP6, and recommended due to better video quality/compression) the image will look as if alpha-blended onto a black background. However for formats that do not use pre-multiplied alpha there might be serious artefacts (though e.g. libswscale currently assumes pre-multiplied alpha anyway).</para>
-    /// <see cref="AVCodecContext.skip_alpha" />
+    /// <para>Header containing style information for text subtitles. For SUBTITLE_ASS subtitle type, it should contain the whole ASS [Script Info] and [V4+ Styles] section, plus the [Events] line and the Format line following. It shouldn't include any Dialogue line. - encoding: Set/allocated/freed by user (before avcodec_open2()) - decoding: Set/allocated/freed by libavcodec (by avcodec_open2())</para>
+    /// <see cref="AVCodecContext.subtitle_header_size" />
     /// </summary>
-    public int SkipAlpha
+    public int SubtitleHeaderSize
     {
-        get => _ptr->skip_alpha;
-        set => _ptr->skip_alpha = value;
+        get => _ptr->subtitle_header_size;
+        set => _ptr->subtitle_header_size = value;
     }
     
     /// <summary>
-    /// <para>Number of samples to skip after a discontinuity - decoding: unused - encoding: set by libavcodec</para>
-    /// <see cref="AVCodecContext.seek_preroll" />
+    /// <para>original type: byte*</para>
+    /// <see cref="AVCodecContext.subtitle_header" />
     /// </summary>
-    public int SeekPreroll
+    public IntPtr SubtitleHeader
     {
-        get => _ptr->seek_preroll;
-        set => _ptr->seek_preroll = value;
-    }
-    
-    /// <summary>
-    /// <para>custom intra quantization matrix - encoding: Set by user, can be NULL. - decoding: unused.</para>
-    /// <see cref="AVCodecContext.chroma_intra_matrix" />
-    /// </summary>
-    public ushort* ChromaIntraMatrix
-    {
-        get => _ptr->chroma_intra_matrix;
-        set => _ptr->chroma_intra_matrix = value;
+        get => (IntPtr)_ptr->subtitle_header;
+        set => _ptr->subtitle_header = (byte*)value;
     }
     
     /// <summary>
@@ -1424,16 +1381,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Properties of the stream that gets decoded - encoding: unused - decoding: set by libavcodec</para>
-    /// <see cref="AVCodecContext.properties" />
-    /// </summary>
-    public uint Properties
-    {
-        get => _ptr->properties;
-        set => _ptr->properties = value;
-    }
-    
-    /// <summary>
     /// <para>original type: AVPacketSideData*</para>
     /// <para>Additional data associated with the entire coded stream.</para>
     /// <see cref="AVCodecContext.coded_side_data" />
@@ -1454,24 +1401,13 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>original type: AVBufferRef*</para>
-    /// <para>A reference to the AVHWFramesContext describing the input (for encoding) or output (decoding) frames. The reference is set by the caller and afterwards owned (and freed) by libavcodec - it should never be read by the caller after being set.</para>
-    /// <see cref="AVCodecContext.hw_frames_ctx" />
+    /// <para>Bit set of AV_CODEC_EXPORT_DATA_* flags, which affects the kind of metadata exported in frame, packet, or coded stream side data by decoders and encoders.</para>
+    /// <see cref="AVCodecContext.export_side_data" />
     /// </summary>
-    public BufferRef? HwFramesContext
+    public int ExportSideData
     {
-        get => BufferRef.FromNativeOrNull(_ptr->hw_frames_ctx, false);
-        set => _ptr->hw_frames_ctx = value != null ? (AVBufferRef*)value : null;
-    }
-    
-    /// <summary>
-    /// <para>Audio only. The amount of padding (in samples) appended by the encoder to the end of the audio. I.e. this number of decoded samples must be discarded by the caller from the end of the stream to get the original audio without any trailing padding.</para>
-    /// <see cref="AVCodecContext.trailing_padding" />
-    /// </summary>
-    public int TrailingPadding
-    {
-        get => _ptr->trailing_padding;
-        set => _ptr->trailing_padding = value;
+        get => _ptr->export_side_data;
+        set => _ptr->export_side_data = value;
     }
     
     /// <summary>
@@ -1485,27 +1421,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>original type: AVBufferRef*</para>
-    /// <para>A reference to the AVHWDeviceContext describing the device which will be used by a hardware encoder/decoder. The reference is set by the caller and afterwards owned (and freed) by libavcodec.</para>
-    /// <see cref="AVCodecContext.hw_device_ctx" />
-    /// </summary>
-    public BufferRef? HwDeviceContext
-    {
-        get => BufferRef.FromNativeOrNull(_ptr->hw_device_ctx, false);
-        set => _ptr->hw_device_ctx = value != null ? (AVBufferRef*)value : null;
-    }
-    
-    /// <summary>
-    /// <para>Bit set of AV_HWACCEL_FLAG_* flags, which affect hardware accelerated decoding (if active). - encoding: unused - decoding: Set by user (either before avcodec_open2(), or in the AVCodecContext.get_format callback)</para>
-    /// <see cref="AVCodecContext.hwaccel_flags" />
-    /// </summary>
-    public int HwaccelFlags
-    {
-        get => _ptr->hwaccel_flags;
-        set => _ptr->hwaccel_flags = value;
-    }
-    
-    /// <summary>
     /// <para>Video decoding only. Certain video codecs support cropping, meaning that only a sub-rectangle of the decoded frame is intended for display. This option controls how cropping is handled by libavcodec.</para>
     /// <see cref="AVCodecContext.apply_cropping" />
     /// </summary>
@@ -1513,15 +1428,6 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->apply_cropping;
         set => _ptr->apply_cropping = value;
-    }
-    
-    /// <summary>
-    /// <see cref="AVCodecContext.extra_hw_frames" />
-    /// </summary>
-    public int ExtraHwFrames
-    {
-        get => _ptr->extra_hw_frames;
-        set => _ptr->extra_hw_frames = value;
     }
     
     /// <summary>
@@ -1545,26 +1451,6 @@ public unsafe partial class CodecContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Bit set of AV_CODEC_EXPORT_DATA_* flags, which affects the kind of metadata exported in frame, packet, or coded stream side data by decoders and encoders.</para>
-    /// <see cref="AVCodecContext.export_side_data" />
-    /// </summary>
-    public int ExportSideData
-    {
-        get => _ptr->export_side_data;
-        set => _ptr->export_side_data = value;
-    }
-    
-    /// <summary>
-    /// <para>Audio channel layout. - encoding: must be set by the caller, to one of AVCodec.ch_layouts. - decoding: may be set by the caller if known e.g. from the container. The decoder can then override during decoding as needed.</para>
-    /// <see cref="AVCodecContext.ch_layout" />
-    /// </summary>
-    public AVChannelLayout ChLayout
-    {
-        get => _ptr->ch_layout;
-        set => _ptr->ch_layout = value;
-    }
-    
-    /// <summary>
     /// <para>Frame counter, set by libavcodec.</para>
     /// <see cref="AVCodecContext.frame_num" />
     /// </summary>
@@ -1572,5 +1458,44 @@ public unsafe partial class CodecContext : SafeHandle
     {
         get => _ptr->frame_num;
         set => _ptr->frame_num = value;
+    }
+    
+    /// <summary>
+    /// <para>Decoding only. May be set by the caller before avcodec_open2() to an av_malloc()'ed array (or via AVOptions). Owned and freed by the decoder afterwards.</para>
+    /// <see cref="AVCodecContext.side_data_prefer_packet" />
+    /// </summary>
+    public int* SideDataPreferPacket
+    {
+        get => _ptr->side_data_prefer_packet;
+        set => _ptr->side_data_prefer_packet = value;
+    }
+    
+    /// <summary>
+    /// <para>Number of entries in side_data_prefer_packet.</para>
+    /// <see cref="AVCodecContext.nb_side_data_prefer_packet" />
+    /// </summary>
+    public uint NbSideDataPreferPacket
+    {
+        get => _ptr->nb_side_data_prefer_packet;
+        set => _ptr->nb_side_data_prefer_packet = value;
+    }
+    
+    /// <summary>
+    /// <para>Array containing static side data, such as HDR10 CLL / MDCV structures. Side data entries should be allocated by usage of helpers defined in libavutil/frame.h.</para>
+    /// <see cref="AVCodecContext.decoded_side_data" />
+    /// </summary>
+    public AVFrameSideData** DecodedSideData
+    {
+        get => _ptr->decoded_side_data;
+        set => _ptr->decoded_side_data = value;
+    }
+    
+    /// <summary>
+    /// <see cref="AVCodecContext.nb_decoded_side_data" />
+    /// </summary>
+    public int NbDecodedSideData
+    {
+        get => _ptr->nb_decoded_side_data;
+        set => _ptr->nb_decoded_side_data = value;
     }
 }

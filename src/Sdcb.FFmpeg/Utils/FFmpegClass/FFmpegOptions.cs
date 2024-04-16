@@ -139,13 +139,6 @@ public unsafe class FFmpegOptions
         av_opt_set_video_rate(_obj, name, value, (int)searchFlags).ThrowIfError();
 
     /// <summary>
-    /// <see cref="av_opt_set_channel_layout(void*, string, long, int)"/>
-    /// </summary>
-    [Obsolete]
-    public void Set(string name, AV_CH value, AV_OPT_SEARCH searchFlags = AV_OPT_SEARCH.Children) => 
-        av_opt_set_channel_layout(_obj, name, (long)value, (int)searchFlags).ThrowIfError();
-
-    /// <summary>
     /// <see cref="av_opt_set_dict_val(void*, string, AVDictionary*, int)"/>
     /// </summary>
     public void Set(string name, MediaDictionary value, AV_OPT_SEARCH searchFlags = AV_OPT_SEARCH.Children) => 
@@ -219,17 +212,6 @@ public unsafe class FFmpegOptions
         AVRational rational;
         av_opt_get_video_rate(_obj, name, (int)searchFlags, &rational).ThrowIfError();
         return rational;
-    }
-
-    /// <summary>
-    /// <see cref="av_opt_get_channel_layout(void*, string, int, long*)"/>
-    /// </summary>
-    [Obsolete]
-    public AV_CH GetChannelLayout(string name, AV_OPT_SEARCH searchFlags = AV_OPT_SEARCH.Children)
-    {
-        long channelLayout;
-        av_opt_get_channel_layout(_obj, name, (int)searchFlags, &channelLayout);
-        return (AV_CH)channelLayout;
     }
 
     /// <summary>

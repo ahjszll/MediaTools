@@ -41,16 +41,6 @@ namespace Sdcb.FFmpeg.Raw
     {
     }
     
-    /// <remarks>This struct is incomplete.</remarks>
-    public unsafe struct AVHWDeviceInternal
-    {
-    }
-    
-    /// <remarks>This struct is incomplete.</remarks>
-    public unsafe struct AVHWFramesInternal
-    {
-    }
-    
     /// <summary>The libswresample context. Unlike libavcodec and libavformat, this structure is opaque. This means that if you would like to set options, you must use the avoptions API and cannot directly set values to members of the structure.</summary>
     /// <remarks>This struct is incomplete.</remarks>
     public unsafe struct SwrContext
@@ -67,6 +57,16 @@ namespace Sdcb.FFmpeg.Raw
     {
     }
     
+    /// <remarks>This struct is incomplete.</remarks>
+    public unsafe struct AVIAMFAudioElement
+    {
+    }
+    
+    /// <remarks>This struct is incomplete.</remarks>
+    public unsafe struct AVIAMFMixPresentation
+    {
+    }
+    
     /// <summary>**********************************************</summary>
     /// <remarks>This struct is incomplete.</remarks>
     public unsafe struct AVCodecTag
@@ -74,7 +74,7 @@ namespace Sdcb.FFmpeg.Raw
     }
     
     /// <remarks>This struct is incomplete.</remarks>
-    public unsafe struct URLContext
+    public unsafe struct AVIODirContext
     {
     }
     
@@ -90,16 +90,6 @@ namespace Sdcb.FFmpeg.Raw
     
     /// <remarks>This struct is incomplete.</remarks>
     public unsafe struct AVFilterChannelLayouts
-    {
-    }
-    
-    /// <remarks>This struct is incomplete.</remarks>
-    public unsafe struct AVFilterGraphInternal
-    {
-    }
-    
-    /// <remarks>This struct is incomplete.</remarks>
-    public unsafe struct AVFilterInternal
     {
     }
     

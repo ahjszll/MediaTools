@@ -85,6 +85,27 @@ public unsafe partial class CodecParameters : SafeHandle
     }
     
     /// <summary>
+    /// <para>original type: AVPacketSideData*</para>
+    /// <para>Additional data associated with the entire stream.</para>
+    /// <see cref="AVCodecParameters.coded_side_data" />
+    /// </summary>
+    public PacketSideData CodedSideData
+    {
+        get => PacketSideData.FromNative(_ptr->coded_side_data);
+        set => _ptr->coded_side_data = (AVPacketSideData*)value;
+    }
+    
+    /// <summary>
+    /// <para>Amount of entries in coded_side_data.</para>
+    /// <see cref="AVCodecParameters.nb_coded_side_data" />
+    /// </summary>
+    public int NbCodedSideData
+    {
+        get => _ptr->nb_coded_side_data;
+        set => _ptr->nb_coded_side_data = value;
+    }
+    
+    /// <summary>
     /// <para>- video: the pixel format, the value corresponds to enum AVPixelFormat. - audio: the sample format, the value corresponds to enum AVSampleFormat.</para>
     /// <see cref="AVCodecParameters.format" />
     /// </summary>
@@ -173,6 +194,16 @@ public unsafe partial class CodecParameters : SafeHandle
     }
     
     /// <summary>
+    /// <para>Video only. Number of frames per second, for streams with constant frame durations. Should be set to { 0, 1 } when some frames have differing durations or if the value is not known.</para>
+    /// <see cref="AVCodecParameters.framerate" />
+    /// </summary>
+    public AVRational Framerate
+    {
+        get => _ptr->framerate;
+        set => _ptr->framerate = value;
+    }
+    
+    /// <summary>
     /// <para>Video only. The order of the fields in interlaced video.</para>
     /// <see cref="AVCodecParameters.field_order" />
     /// </summary>
@@ -239,25 +270,13 @@ public unsafe partial class CodecParameters : SafeHandle
     }
     
     /// <summary>
-    /// <para>Audio only. The channel layout bitmask. May be 0 if the channel layout is unknown or unspecified, otherwise the number of bits set must be equal to the channels field.</para>
-    /// <see cref="AVCodecParameters.channel_layout" />
+    /// <para>Audio only. The channel layout and number of channels.</para>
+    /// <see cref="AVCodecParameters.ch_layout" />
     /// </summary>
-    [Obsolete("use ch_layout")]
-    public ulong ChannelLayout
+    public AVChannelLayout ChLayout
     {
-        get => _ptr->channel_layout;
-        set => _ptr->channel_layout = value;
-    }
-    
-    /// <summary>
-    /// <para>Audio only. The number of audio channels.</para>
-    /// <see cref="AVCodecParameters.channels" />
-    /// </summary>
-    [Obsolete("use ch_layout.nb_channels")]
-    public int Channels
-    {
-        get => _ptr->channels;
-        set => _ptr->channels = value;
+        get => _ptr->ch_layout;
+        set => _ptr->ch_layout = value;
     }
     
     /// <summary>
@@ -318,46 +337,5 @@ public unsafe partial class CodecParameters : SafeHandle
     {
         get => _ptr->seek_preroll;
         set => _ptr->seek_preroll = value;
-    }
-    
-    /// <summary>
-    /// <para>Audio only. The channel layout and number of channels.</para>
-    /// <see cref="AVCodecParameters.ch_layout" />
-    /// </summary>
-    public AVChannelLayout ChLayout
-    {
-        get => _ptr->ch_layout;
-        set => _ptr->ch_layout = value;
-    }
-    
-    /// <summary>
-    /// <para>Video only. Number of frames per second, for streams with constant frame durations. Should be set to { 0, 1 } when some frames have differing durations or if the value is not known.</para>
-    /// <see cref="AVCodecParameters.framerate" />
-    /// </summary>
-    public AVRational Framerate
-    {
-        get => _ptr->framerate;
-        set => _ptr->framerate = value;
-    }
-    
-    /// <summary>
-    /// <para>original type: AVPacketSideData*</para>
-    /// <para>Additional data associated with the entire stream.</para>
-    /// <see cref="AVCodecParameters.coded_side_data" />
-    /// </summary>
-    public PacketSideData CodedSideData
-    {
-        get => PacketSideData.FromNative(_ptr->coded_side_data);
-        set => _ptr->coded_side_data = (AVPacketSideData*)value;
-    }
-    
-    /// <summary>
-    /// <para>Amount of entries in coded_side_data.</para>
-    /// <see cref="AVCodecParameters.nb_coded_side_data" />
-    /// </summary>
-    public int NbCodedSideData
-    {
-        get => _ptr->nb_coded_side_data;
-        set => _ptr->nb_coded_side_data = value;
     }
 }

@@ -106,6 +106,32 @@ public unsafe partial class FormatContext : SafeHandle
     public IReadOnlyList<MediaStream> Streams => new ReadOnlyPtrList<AVStream, MediaStream>(_ptr->streams, (int)_ptr->nb_streams, MediaStream.FromNative)!;
     
     /// <summary>
+    /// <para>Number of elements in AVFormatContext.stream_groups.</para>
+    /// <see cref="AVFormatContext.nb_stream_groups" />
+    /// </summary>
+    public uint NbStreamGroups
+    {
+        get => _ptr->nb_stream_groups;
+        set => _ptr->nb_stream_groups = value;
+    }
+    
+    /// <summary>
+    /// <para>A list of all stream groups in the file. New groups are created with avformat_stream_group_create(), and filled with avformat_stream_group_add_stream().</para>
+    /// <see cref="AVFormatContext.stream_groups" />
+    /// </summary>
+    public AVStreamGroup** StreamGroups
+    {
+        get => _ptr->stream_groups;
+        set => _ptr->stream_groups = value;
+    }
+    
+    /// <summary>
+    /// <para>original type: AVChapter**</para>
+    /// <see cref="AVFormatContext.chapters" />
+    /// </summary>
+    public IReadOnlyList<MediaChapter> Chapters => new ReadOnlyPtrList<AVChapter, MediaChapter>(_ptr->chapters, (int)_ptr->nb_chapters, MediaChapter.FromNative)!;
+    
+    /// <summary>
     /// <para>original type: byte*</para>
     /// <para>input or output URL. Unlike the old filename field, this field has no length restriction.</para>
     /// <see cref="AVFormatContext.url" />
@@ -251,30 +277,14 @@ public unsafe partial class FormatContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Maximum amount of memory in bytes to use for the index of each stream. If the index exceeds this size, entries will be discarded as needed to maintain a smaller size. This can lead to slower or less accurate seeking (depends on demuxer). Demuxers for which a full in-memory index is mandatory will ignore this. - muxing: unused - demuxing: set by user</para>
-    /// <see cref="AVFormatContext.max_index_size" />
+    /// <para>Forced Data codec_id. Demuxing: Set by user.</para>
+    /// <see cref="AVFormatContext.data_codec_id" />
     /// </summary>
-    public uint MaxIndexSize
+    public AVCodecID DataCodecId
     {
-        get => _ptr->max_index_size;
-        set => _ptr->max_index_size = value;
+        get => _ptr->data_codec_id;
+        set => _ptr->data_codec_id = value;
     }
-    
-    /// <summary>
-    /// <para>Maximum amount of memory in bytes to use for buffering frames obtained from realtime capture devices.</para>
-    /// <see cref="AVFormatContext.max_picture_buffer" />
-    /// </summary>
-    public uint MaxPictureBuffer
-    {
-        get => _ptr->max_picture_buffer;
-        set => _ptr->max_picture_buffer = value;
-    }
-    
-    /// <summary>
-    /// <para>original type: AVChapter**</para>
-    /// <see cref="AVFormatContext.chapters" />
-    /// </summary>
-    public IReadOnlyList<MediaChapter> Chapters => new ReadOnlyPtrList<AVChapter, MediaChapter>(_ptr->chapters, (int)_ptr->nb_chapters, MediaChapter.FromNative)!;
     
     /// <summary>
     /// <para>original type: AVDictionary*</para>
@@ -338,6 +348,36 @@ public unsafe partial class FormatContext : SafeHandle
     }
     
     /// <summary>
+    /// <para>The maximum number of streams. - encoding: unused - decoding: set by user</para>
+    /// <see cref="AVFormatContext.max_streams" />
+    /// </summary>
+    public int MaxStreams
+    {
+        get => _ptr->max_streams;
+        set => _ptr->max_streams = value;
+    }
+    
+    /// <summary>
+    /// <para>Maximum amount of memory in bytes to use for the index of each stream. If the index exceeds this size, entries will be discarded as needed to maintain a smaller size. This can lead to slower or less accurate seeking (depends on demuxer). Demuxers for which a full in-memory index is mandatory will ignore this. - muxing: unused - demuxing: set by user</para>
+    /// <see cref="AVFormatContext.max_index_size" />
+    /// </summary>
+    public uint MaxIndexSize
+    {
+        get => _ptr->max_index_size;
+        set => _ptr->max_index_size = value;
+    }
+    
+    /// <summary>
+    /// <para>Maximum amount of memory in bytes to use for buffering frames obtained from realtime capture devices.</para>
+    /// <see cref="AVFormatContext.max_picture_buffer" />
+    /// </summary>
+    public uint MaxPictureBuffer
+    {
+        get => _ptr->max_picture_buffer;
+        set => _ptr->max_picture_buffer = value;
+    }
+    
+    /// <summary>
     /// <para>Maximum buffering duration for interleaving.</para>
     /// <see cref="AVFormatContext.max_interleave_delta" />
     /// </summary>
@@ -348,26 +388,6 @@ public unsafe partial class FormatContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Allow non-standard and experimental extension</para>
-    /// <see cref="AVFormatContext.strict_std_compliance" />
-    /// </summary>
-    public int StrictStdCompliance
-    {
-        get => _ptr->strict_std_compliance;
-        set => _ptr->strict_std_compliance = value;
-    }
-    
-    /// <summary>
-    /// <para>Flags indicating events happening on the file, a combination of AVFMT_EVENT_FLAG_*.</para>
-    /// <see cref="AVFormatContext.event_flags" />
-    /// </summary>
-    public int EventFlags
-    {
-        get => _ptr->event_flags;
-        set => _ptr->event_flags = value;
-    }
-    
-    /// <summary>
     /// <para>Maximum number of packets to read while waiting for the first timestamp. Decoding only.</para>
     /// <see cref="AVFormatContext.max_ts_probe" />
     /// </summary>
@@ -375,36 +395,6 @@ public unsafe partial class FormatContext : SafeHandle
     {
         get => _ptr->max_ts_probe;
         set => _ptr->max_ts_probe = value;
-    }
-    
-    /// <summary>
-    /// <para>Avoid negative timestamps during muxing. Any value of the AVFMT_AVOID_NEG_TS_* constants. Note, this works better when using av_interleaved_write_frame(). - muxing: Set by user - demuxing: unused</para>
-    /// <see cref="AVFormatContext.avoid_negative_ts" />
-    /// </summary>
-    public int AvoidNegativeTs
-    {
-        get => _ptr->avoid_negative_ts;
-        set => _ptr->avoid_negative_ts = value;
-    }
-    
-    /// <summary>
-    /// <para>Transport stream id. This will be moved into demuxer private options. Thus no API/ABI compatibility</para>
-    /// <see cref="AVFormatContext.ts_id" />
-    /// </summary>
-    public int TsId
-    {
-        get => _ptr->ts_id;
-        set => _ptr->ts_id = value;
-    }
-    
-    /// <summary>
-    /// <para>Audio preload in microseconds. Note, not all formats support this and unpredictable things may happen if it is used when not supported. - encoding: Set by user - decoding: unused</para>
-    /// <see cref="AVFormatContext.audio_preload" />
-    /// </summary>
-    public int AudioPreload
-    {
-        get => _ptr->audio_preload;
-        set => _ptr->audio_preload = value;
     }
     
     /// <summary>
@@ -428,6 +418,56 @@ public unsafe partial class FormatContext : SafeHandle
     }
     
     /// <summary>
+    /// <para>Maximum number of packets that can be probed - encoding: unused - decoding: set by user</para>
+    /// <see cref="AVFormatContext.max_probe_packets" />
+    /// </summary>
+    public int MaxProbePackets
+    {
+        get => _ptr->max_probe_packets;
+        set => _ptr->max_probe_packets = value;
+    }
+    
+    /// <summary>
+    /// <para>Allow non-standard and experimental extension</para>
+    /// <see cref="AVFormatContext.strict_std_compliance" />
+    /// </summary>
+    public int StrictStdCompliance
+    {
+        get => _ptr->strict_std_compliance;
+        set => _ptr->strict_std_compliance = value;
+    }
+    
+    /// <summary>
+    /// <para>Flags indicating events happening on the file, a combination of AVFMT_EVENT_FLAG_*.</para>
+    /// <see cref="AVFormatContext.event_flags" />
+    /// </summary>
+    public int EventFlags
+    {
+        get => _ptr->event_flags;
+        set => _ptr->event_flags = value;
+    }
+    
+    /// <summary>
+    /// <para>Avoid negative timestamps during muxing. Any value of the AVFMT_AVOID_NEG_TS_* constants. Note, this works better when using av_interleaved_write_frame(). - muxing: Set by user - demuxing: unused</para>
+    /// <see cref="AVFormatContext.avoid_negative_ts" />
+    /// </summary>
+    public int AvoidNegativeTs
+    {
+        get => _ptr->avoid_negative_ts;
+        set => _ptr->avoid_negative_ts = value;
+    }
+    
+    /// <summary>
+    /// <para>Audio preload in microseconds. Note, not all formats support this and unpredictable things may happen if it is used when not supported. - encoding: Set by user - decoding: unused</para>
+    /// <see cref="AVFormatContext.audio_preload" />
+    /// </summary>
+    public int AudioPreload
+    {
+        get => _ptr->audio_preload;
+        set => _ptr->audio_preload = value;
+    }
+    
+    /// <summary>
     /// <para>forces the use of wallclock timestamps as pts/dts of packets This has undefined results in the presence of B frames. - encoding: unused - decoding: Set by user</para>
     /// <see cref="AVFormatContext.use_wallclock_as_timestamps" />
     /// </summary>
@@ -435,6 +475,16 @@ public unsafe partial class FormatContext : SafeHandle
     {
         get => _ptr->use_wallclock_as_timestamps;
         set => _ptr->use_wallclock_as_timestamps = value;
+    }
+    
+    /// <summary>
+    /// <para>Skip duration calcuation in estimate_timings_from_pts. - encoding: unused - decoding: set by user</para>
+    /// <see cref="AVFormatContext.skip_estimate_duration_from_pts" />
+    /// </summary>
+    public int SkipEstimateDurationFromPts
+    {
+        get => _ptr->skip_estimate_duration_from_pts;
+        set => _ptr->skip_estimate_duration_from_pts = value;
     }
     
     /// <summary>
@@ -540,6 +590,28 @@ public unsafe partial class FormatContext : SafeHandle
     }
     
     /// <summary>
+    /// <para>original type: byte*</para>
+    /// <para>',' separated list of allowed protocols. - encoding: unused - decoding: set by user</para>
+    /// <see cref="AVFormatContext.protocol_whitelist" />
+    /// </summary>
+    public string? ProtocolWhitelist
+    {
+        get => _ptr->protocol_whitelist != null ? PtrExtensions.PtrToStringUTF8((IntPtr)_ptr->protocol_whitelist)! : null;
+        set => Options.Set("protocol_whitelist", value);
+    }
+    
+    /// <summary>
+    /// <para>original type: byte*</para>
+    /// <para>',' separated list of disallowed protocols. - encoding: unused - decoding: set by user</para>
+    /// <see cref="AVFormatContext.protocol_blacklist" />
+    /// </summary>
+    public string? ProtocolBlacklist
+    {
+        get => _ptr->protocol_blacklist != null ? PtrExtensions.PtrToStringUTF8((IntPtr)_ptr->protocol_blacklist)! : null;
+        set => Options.Set("protocol_blacklist", value);
+    }
+    
+    /// <summary>
     /// <para>IO repositioned flag. This is set by avformat when the underlaying IO context read pointer is repositioned, for example when doing byte based seeking. Demuxers can use the flag to detect such changes.</para>
     /// <see cref="AVFormatContext.io_repositioned" />
     /// </summary>
@@ -594,7 +666,7 @@ public unsafe partial class FormatContext : SafeHandle
     }
     
     /// <summary>
-    /// <para>Number of bytes to be written as padding in a metadata header. Demuxing: Unused. Muxing: Set by user via av_format_set_metadata_header_padding.</para>
+    /// <para>Number of bytes to be written as padding in a metadata header. Demuxing: Unused. Muxing: Set by user.</para>
     /// <see cref="AVFormatContext.metadata_header_padding" />
     /// </summary>
     public int MetadataHeaderPadding
@@ -633,68 +705,6 @@ public unsafe partial class FormatContext : SafeHandle
     {
         get => _ptr->dump_separator != null ? PtrExtensions.PtrToStringUTF8((IntPtr)_ptr->dump_separator)! : null;
         set => Options.Set("dump_separator", value);
-    }
-    
-    /// <summary>
-    /// <para>Forced Data codec_id. Demuxing: Set by user.</para>
-    /// <see cref="AVFormatContext.data_codec_id" />
-    /// </summary>
-    public AVCodecID DataCodecId
-    {
-        get => _ptr->data_codec_id;
-        set => _ptr->data_codec_id = value;
-    }
-    
-    /// <summary>
-    /// <para>original type: byte*</para>
-    /// <para>',' separated list of allowed protocols. - encoding: unused - decoding: set by user</para>
-    /// <see cref="AVFormatContext.protocol_whitelist" />
-    /// </summary>
-    public string? ProtocolWhitelist
-    {
-        get => _ptr->protocol_whitelist != null ? PtrExtensions.PtrToStringUTF8((IntPtr)_ptr->protocol_whitelist)! : null;
-        set => Options.Set("protocol_whitelist", value);
-    }
-    
-    /// <summary>
-    /// <para>original type: byte*</para>
-    /// <para>',' separated list of disallowed protocols. - encoding: unused - decoding: set by user</para>
-    /// <see cref="AVFormatContext.protocol_blacklist" />
-    /// </summary>
-    public string? ProtocolBlacklist
-    {
-        get => _ptr->protocol_blacklist != null ? PtrExtensions.PtrToStringUTF8((IntPtr)_ptr->protocol_blacklist)! : null;
-        set => Options.Set("protocol_blacklist", value);
-    }
-    
-    /// <summary>
-    /// <para>The maximum number of streams. - encoding: unused - decoding: set by user</para>
-    /// <see cref="AVFormatContext.max_streams" />
-    /// </summary>
-    public int MaxStreams
-    {
-        get => _ptr->max_streams;
-        set => _ptr->max_streams = value;
-    }
-    
-    /// <summary>
-    /// <para>Skip duration calcuation in estimate_timings_from_pts. - encoding: unused - decoding: set by user</para>
-    /// <see cref="AVFormatContext.skip_estimate_duration_from_pts" />
-    /// </summary>
-    public int SkipEstimateDurationFromPts
-    {
-        get => _ptr->skip_estimate_duration_from_pts;
-        set => _ptr->skip_estimate_duration_from_pts = value;
-    }
-    
-    /// <summary>
-    /// <para>Maximum number of packets that can be probed - encoding: unused - decoding: set by user</para>
-    /// <see cref="AVFormatContext.max_probe_packets" />
-    /// </summary>
-    public int MaxProbePackets
-    {
-        get => _ptr->max_probe_packets;
-        set => _ptr->max_probe_packets = value;
     }
     
 }

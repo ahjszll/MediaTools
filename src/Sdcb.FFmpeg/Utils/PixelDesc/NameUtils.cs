@@ -13,20 +13,6 @@ public static class NameUtils
     /// </summary>
     public static string GetPixelFormatName(AVPixelFormat pixelFormat) => av_get_pix_fmt_name(pixelFormat);
 
-    /// <summary>
-    /// <see cref="av_get_channel_layout_string"/>
-    /// </summary>
-    [Obsolete("use AVChannelLayout.Describe()")]
-    public unsafe static string GetChannelLayoutString(ulong channelLayout, int channels = 0)
-    {
-        byte[] buffer = new byte[64];
-        fixed(byte* ptr = buffer)
-        {
-            av_get_channel_layout_string(ptr, buffer.Length, channels, channelLayout);
-            return PtrExtensions.PtrToStringUTF8((IntPtr)ptr)!;
-        }
-    }
-
     public static string GetSampleFormatName(AVSampleFormat sampleFormat) => av_get_sample_fmt_name(sampleFormat);
 
     /// <summary>

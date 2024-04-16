@@ -80,17 +80,6 @@ public unsafe partial class FilterGraph : SafeHandle
     }
     
     /// <summary>
-    /// <para>original type: AVFilterGraphInternal*</para>
-    /// <para>Opaque object for libavfilter internal use.</para>
-    /// <see cref="AVFilterGraph.@internal" />
-    /// </summary>
-    public IntPtr Internal
-    {
-        get => (IntPtr)_ptr->@internal;
-        set => _ptr->@internal = (AVFilterGraphInternal*)value;
-    }
-    
-    /// <summary>
     /// <para>original type: void*</para>
     /// <para>Opaque user data. May be set by the caller to an arbitrary value, e.g. to be used from callbacks like AVFilterGraph.execute. Libavfilter will not touch this field in any way.</para>
     /// <see cref="AVFilterGraph.opaque" />
@@ -110,21 +99,5 @@ public unsafe partial class FilterGraph : SafeHandle
     {
         get => (IntPtr)_ptr->aresample_swr_opts;
         set => _ptr->aresample_swr_opts = (byte*)value;
-    }
-    
-    /// <summary>
-    /// <para>original type: AVFilterLink**</para>
-    /// <para>Private fields</para>
-    /// <see cref="AVFilterGraph.sink_links" />
-    /// </summary>
-    public IReadOnlyList<FilterLink> SinkLinks => new ReadOnlyPtrList<AVFilterLink, FilterLink>(_ptr->sink_links, (int)_ptr->sink_links_count, p => FilterLink.FromNative(p, isOwner: false))!;
-    
-    /// <summary>
-    /// <see cref="AVFilterGraph.disable_auto_convert" />
-    /// </summary>
-    public uint DisableAutoConvert
-    {
-        get => _ptr->disable_auto_convert;
-        set => _ptr->disable_auto_convert = value;
     }
 }

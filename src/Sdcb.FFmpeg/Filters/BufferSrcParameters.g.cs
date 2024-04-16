@@ -116,22 +116,30 @@ public unsafe partial class BufferSrcParameters : SafeHandle
     
     /// <summary>
     /// <para>Audio only, the audio channel layout</para>
-    /// <see cref="AVBufferSrcParameters.channel_layout" />
-    /// </summary>
-    [Obsolete("use ch_layout")]
-    public ulong ChannelLayout
-    {
-        get => _ptr->channel_layout;
-        set => _ptr->channel_layout = value;
-    }
-    
-    /// <summary>
-    /// <para>Audio only, the audio channel layout</para>
     /// <see cref="AVBufferSrcParameters.ch_layout" />
     /// </summary>
     public AVChannelLayout ChLayout
     {
         get => _ptr->ch_layout;
         set => _ptr->ch_layout = value;
+    }
+    
+    /// <summary>
+    /// <para>Video only, the YUV colorspace and range.</para>
+    /// <see cref="AVBufferSrcParameters.color_space" />
+    /// </summary>
+    public AVColorSpace ColorSpace
+    {
+        get => _ptr->color_space;
+        set => _ptr->color_space = value;
+    }
+    
+    /// <summary>
+    /// <see cref="AVBufferSrcParameters.color_range" />
+    /// </summary>
+    public AVColorRange ColorRange
+    {
+        get => _ptr->color_range;
+        set => _ptr->color_range = value;
     }
 }
