@@ -97,14 +97,21 @@ async Task SetupFFmpegBinaries(string solutionDir, string ffmpegBinaryUrl)
     }
 
     Console.WriteLine($"(1 of 4) Downloading {ffmpegBinaryUrl} to {destinationCacheFile} ...");
+    do
     {
+        if (File.Exists(destinationCacheFile))
+        {
+            Console.WriteLine($"File {destinationCacheFile} already exists, skipped downloading.");
+            break;
+        }
+
         HttpClient http = new();
         Stream msg = await http.GetStreamAsync(ffmpegBinaryUrl);
         using FileStream file = File.OpenWrite(destinationCacheFile);
         msg.CopyTo(file);
         file.SetLength(file.Position);
         Console.WriteLine($"Done.");
-    }
+    } while (false);
 
     Console.WriteLine($"(2 of 4) Cleanup {FFmpegDir} folder...");
     {
@@ -115,13 +122,13 @@ async Task SetupFFmpegBinaries(string solutionDir, string ffmpegBinaryUrl)
     Console.WriteLine($"(3 of 4) Extracting {destinationCacheFile}...");
     {
         using IArchive archive = ArchiveFactory.Open(destinationCacheFile);
-        ExtractPrefixToDest(archive.Entries, "/bin", FFmpegBinDir);
-        ExtractPrefixToDest(archive.Entries, "/include", FFmpegIncludeDir);
+        ExtractPrefixToDest(archive.Entries, "/bin/", FFmpegBinDir);
+        ExtractPrefixToDest(archive.Entries, "/include/", FFmpegIncludeDir);
 
         static void ExtractPrefixToDest(IEnumerable<IArchiveEntry> entries, string prefix, string dest)
         {
             IArchiveEntry zipPrefixEntry = entries.Single(x => x.Key.EndsWith(prefix) && x.IsDirectory);
-            string zipPrefix = zipPrefixEntry.Key + "/";
+            string zipPrefix = zipPrefixEntry.Key;
             Directory.CreateDirectory(dest);
 
             foreach (IArchiveEntry entry in entries.Where(x => x.Key.StartsWith(zipPrefix) && x.Key != zipPrefix))
