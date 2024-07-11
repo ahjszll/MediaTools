@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaCore", "MediaCore\MediaCore.csproj", "{3012EE6D-3324-4D77-B39F-5F857C37881B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaTest", "MediaTest\MediaTest.csproj", "{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3012EE6D-3324-4D77-B39F-5F857C37881B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3012EE6D-3324-4D77-B39F-5F857C37881B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3012EE6D-3324-4D77-B39F-5F857C37881B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3012EE6D-3324-4D77-B39F-5F857C37881B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
