@@ -21,4 +21,8 @@
         <Using Include="NUnit.Framework"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MediaCore\MediaCore.csproj" />
+    </ItemGroup>
+
 </Project>
