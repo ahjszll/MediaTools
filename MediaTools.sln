@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaCore", "MediaCore\Medi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaTest", "MediaTest\MediaTest.csproj", "{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sdcb.FFmpeg", "Sdcb.FFmpeg\src\Sdcb.FFmpeg\Sdcb.FFmpeg.csproj", "{2D823EC9-9E52-4C96-88AF-28810C179B73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5056C7E7-94BF-4C10-A0A7-E33FF9DC254F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D823EC9-9E52-4C96-88AF-28810C179B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D823EC9-9E52-4C96-88AF-28810C179B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D823EC9-9E52-4C96-88AF-28810C179B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D823EC9-9E52-4C96-88AF-28810C179B73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
