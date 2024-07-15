@@ -28,17 +28,20 @@ public class Screen
     
     public void Capture()
     {
+        _screenCapture.CaptureScreen();
         using (_fullscreen.Lock())
         {
             unsafe
             {
                 RefImage<ColorBGRA> image = _fullscreen.Image;
-                var intptr = Unsafe.AsPointer(ref _fullscreen.Pixels.GetPinnableReference());
-                SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888),
-                    (IntPtr)intptr, image.RawStride);
-                using FileStream fs = new FileStream(DateTime.Now.ToString("HH_mm_ss_fff") + ".jpg", FileMode.Create);
-                skImage.Encode().AsStream().CopyTo(fs);
-                fs.Flush();
+                fixed (ColorBGRA* ptr = &image.GetPinnableReference())
+                {
+                    SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888),
+                        (IntPtr)ptr, _fullscreen.Stride);
+                    using FileStream fs = new FileStream(DateTime.Now.ToString("HH_mm_ss_fff") + ".jpg", FileMode.Create);
+                    skImage.Encode().AsStream().CopyTo(fs);
+                    fs.Flush();
+                }
             }
         }
     }

@@ -25,7 +25,7 @@ public class Tests
         int i = 0;
         while (true)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             s.Capture();
             i++;
             if (i > 10)
