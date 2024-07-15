@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using ScreenCapture.NET;
+using Sdcb.FFmpeg.Raw;
 using SkiaSharp;
 
 namespace MediaCore.Sources;
@@ -26,7 +27,7 @@ public class Screen
         _topLeft = _screenCapture.RegisterCaptureZone(0, 0, 100, 100, downscaleLevel: 1);
     }
     
-    public void Capture()
+    public SKImage Capture()
     {
         _screenCapture.CaptureScreen();
         using (_fullscreen.Lock())
@@ -36,11 +37,9 @@ public class Screen
                 RefImage<ColorBGRA> image = _fullscreen.Image;
                 fixed (ColorBGRA* ptr = &image.GetPinnableReference())
                 {
-                    SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888),
-                        (IntPtr)ptr, _fullscreen.Stride);
-                    using FileStream fs = new FileStream(DateTime.Now.ToString("HH_mm_ss_fff") + ".jpg", FileMode.Create);
-                    skImage.Encode().AsStream().CopyTo(fs);
-                    fs.Flush();
+                    SKData sk =  SKData.CreateCopy((IntPtr)ptr, _fullscreen.RawBuffer.Length);
+                    SKImage skImage = SKImage.FromPixels(new SKImageInfo(image.Width, image.Height, SKColorType.Bgra8888),sk);
+                    return skImage;
                 }
             }
         }

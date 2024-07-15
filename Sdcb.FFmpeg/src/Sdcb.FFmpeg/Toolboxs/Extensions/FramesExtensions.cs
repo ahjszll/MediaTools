@@ -50,7 +50,7 @@ public static class FramesExtensions
             using Frame dest = c.CreateVideoFrame();
             using Frame destRef = new Frame();
             int pts = 0;
-            using VideoFrameConverter frameConverter = new();
+            using VideoFrameConverter frameConverter = new(){};
             foreach (Frame sourceFrame in sourceFrames)
             {
                 if (sourceFrame.Width > 0)

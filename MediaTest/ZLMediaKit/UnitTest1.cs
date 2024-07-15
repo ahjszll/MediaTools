@@ -1,3 +1,4 @@
+using MediaCore.Encoders;
 using MediaCore.ZLMediaKit;
 
 namespace MediaTest.ZLMediaKit;
@@ -32,4 +33,12 @@ public class Tests
                 break;
         }
     }
+    
+    [Test]
+    public void Test3()
+    {
+        H264.ddd();
+    }
+    
+   
 }
