@@ -16,8 +16,13 @@ public class Tests
         var config = new mk_config();
         MkCommon.mk_env_init(ref config);
         var port = MkCommon.mk_rtsp_server_start(554, 0);
+        IntPtr ptr=MkMedia.mk_media_create("", "live", "test", 0, 0, 0);
+        MkMedia.mk_media_start_send_rtp(ptr, "127.0.0.1", 554, "test", 1, delegateCallBack, IntPtr.Zero);
+        
         Thread.Sleep(1000 * 60);
     }
+
+
 
     [Test]
     public void Test2()
@@ -40,5 +45,8 @@ public class Tests
         H264.ddd();
     }
     
-   
+    public void delegateCallBack(IntPtr user_data, int local_port, int err, string msg)
+    {
+        
+    }
 }
