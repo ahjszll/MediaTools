@@ -55,5 +55,28 @@ namespace Sdcb.FFmpeg.Toolboxs.Extensions
                 yield return packet;
             }
         }
+        
+        public static Packet EncodeFrame2(this CodecContext c, Frame? frame, Packet packet)
+        {
+            try
+            {
+                c.SendFrame(frame);
+            }
+            finally
+            {
+                if (frame != null)
+                {
+                    frame.Unref();
+                }
+            }
+
+            while (true)
+            {
+                CodecResult s = c.ReceivePacket(packet);
+                if (s == CodecResult.Again || s == CodecResult.EOF)
+                    return null;
+                return packet;
+            }
+        }
     }
 }

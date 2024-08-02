@@ -2,6 +2,7 @@
 using Sdcb.FFmpeg.Codecs;
 using Sdcb.FFmpeg.Formats;
 using Sdcb.FFmpeg.Raw;
+using Sdcb.FFmpeg.Swscales;
 using Sdcb.FFmpeg.Toolboxs.Extensions;
 using Sdcb.FFmpeg.Utils;
 using SkiaSharp;
@@ -47,11 +48,46 @@ public class H264
             list.Add(frame);
             imgList.Add(bitmap);
         }
-        var packs = list.ConvertFrames(vcodec).EncodeFrames(vcodec);
+        var packs = list.EncodeFrames(vcodec);
         foreach (var pack in packs)
         {
             fc.WritePacket(pack);
         }
         fc.WriteTrailer();
+    }
+
+    private CodecContext _codecContext;
+    private VideoFrameConverter converter = new();
+
+    public H264()
+    {
+        _codecContext = new CodecContext(Codec.CommonEncoders.Libx264)
+        {
+            Width = 1920,
+            Height = 1080,
+            PixelFormat = AVPixelFormat.Yuv420p,
+            TimeBase = new AVRational(1, 25),
+            Flags  = AV_CODEC_FLAG.GlobalHeader,
+        };
+        _codecContext.Open(Codec.CommonEncoders.Libx264);
+    }
+
+    public Packet Encode(SKImage skImage,int pts)
+    {
+        SKBitmap bitmap = SKBitmap.FromImage(skImage);
+        Frame frame = new Frame();
+        frame.Data[0] = bitmap.GetAddress(0, 0);
+        frame.Linesize[0] = skImage.Width * 4;
+        frame.Format = (int)AVPixelFormat.Bgra;
+        frame.Width = skImage.Width;
+        frame.Height = skImage.Height;
+        using var tempFrame = _codecContext.CreateFrame();
+        tempFrame.MakeWritable();
+        converter.ConvertFrame(frame,tempFrame);
+        var packetRef = new Packet();
+        tempFrame.Pts = pts;
+        tempFrame.PktDts = pts;
+        _codecContext.EncodeFrame2(tempFrame, packetRef);
+        return packetRef;
     }
 }

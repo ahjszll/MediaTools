@@ -23,6 +23,11 @@ public class MkMedia
     
     [DllImport("mk_api", EntryPoint = "mk_media_start_send_rtp")]
     public static extern void  mk_media_start_send_rtp(IntPtr ctx, string dst_url, int dst_port, string ssrc, int is_udp, delegateCallBack cb, IntPtr user_data);
+    
+    
+    
+    [DllImport("mk_api", EntryPoint = "mk_media_input_h264")]
+    public static extern int  mk_media_input_h264(IntPtr ctx, IntPtr data, int len, UInt64 dts, UInt64 pts);
 
 
 }
