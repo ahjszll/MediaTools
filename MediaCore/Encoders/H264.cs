@@ -67,7 +67,7 @@ public class H264
             Height = 1080,
             PixelFormat = AVPixelFormat.Yuv420p,
             TimeBase = new AVRational(1, 25),
-            Flags  = AV_CODEC_FLAG.GlobalHeader,
+            Framerate = new AVRational(25, 1)
         };
         _codecContext.Open(Codec.CommonEncoders.Libx264);
     }
@@ -86,7 +86,6 @@ public class H264
         converter.ConvertFrame(frame,tempFrame);
         var packetRef = new Packet();
         tempFrame.Pts = pts;
-        tempFrame.PktDts = pts;
         _codecContext.EncodeFrame2(tempFrame, packetRef);
         return packetRef;
     }

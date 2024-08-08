@@ -21,7 +21,7 @@ namespace ZLMediaKit
 
     public unsafe partial class MkConfig : IDisposable
     {
-        [StructLayout(LayoutKind.Sequential, Size = 64)]
+        [StructLayout(LayoutKind.Sequential)]
         public partial struct __Internal
         {
             internal int thread_num;
@@ -34,9 +34,6 @@ namespace ZLMediaKit
             internal int ssl_is_path;
             internal IntPtr ssl;
             internal IntPtr ssl_pwd;
-
-            [SuppressUnmanagedCodeSecurity, DllImport("ZLMediaKit", EntryPoint = "??0mk_config@@QEAA@AEBU0@@Z", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern IntPtr cctor(IntPtr __instance, IntPtr __0);
         }
 
         public IntPtr __Instance { get; protected set; }
@@ -330,8 +327,8 @@ namespace ZLMediaKit
             [SuppressUnmanagedCodeSecurity, DllImport("mk_api", EntryPoint = "mk_stop_all_server", CallingConvention = CallingConvention.Cdecl)]
             internal static extern void MkStopAllServer();
 
-            [SuppressUnmanagedCodeSecurity, DllImport("mk_api", EntryPoint = "mk_env_init1", CallingConvention = CallingConvention.Cdecl)]
-            internal static extern void MkEnvInit1(int thread_num, int log_level, int log_mask, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string log_file_path, int log_file_days, int ini_is_path, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string ini, int ssl_is_path, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string ssl, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string ssl_pwd);
+            [SuppressUnmanagedCodeSecurity, DllImport("mk_api", EntryPoint = "mk_env_init2", CallingConvention = CallingConvention.Cdecl)]
+            internal static extern void MkEnvInit2(int thread_num, int log_level, int log_mask, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string log_file_path, int log_file_days, int ini_is_path, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string ini, int ssl_is_path, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string ssl, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(CppSharp.Runtime.UTF8Marshaller))] string ssl_pwd);
 
             [SuppressUnmanagedCodeSecurity, DllImport("mk_api", EntryPoint = "mk_set_log", CallingConvention = CallingConvention.Cdecl)]
             internal static extern void MkSetLog(int file_max_size, int file_max_count);
@@ -395,9 +392,9 @@ namespace ZLMediaKit
         /// <param name="ssl_is_path">ssl证书是内容还是路径</param>
         /// <param name="ssl">ssl证书内容或路径，可以为NULL</param>
         /// <param name="ssl_pwd">证书密码，可以为NULL</param>
-        public static void MkEnvInit1(int thread_num, int log_level, int log_mask, string log_file_path, int log_file_days, int ini_is_path, string ini, int ssl_is_path, string ssl, string ssl_pwd)
+        public static void MkEnvInit2(int thread_num, int log_level, int log_mask, string log_file_path, int log_file_days, int ini_is_path, string ini, int ssl_is_path, string ssl, string ssl_pwd)
         {
-            __Internal.MkEnvInit1(thread_num, log_level, log_mask, log_file_path, log_file_days, ini_is_path, ini, ssl_is_path, ssl, ssl_pwd);
+            __Internal.MkEnvInit2(thread_num, log_level, log_mask, log_file_path, log_file_days, ini_is_path, ini, ssl_is_path, ssl, ssl_pwd);
         }
 
         /// <summary>设置日志文件</summary>

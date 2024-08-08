@@ -64,7 +64,7 @@ public unsafe static class FrameExtensions
             codecContext.PixelFormat = codec.PixelFormats.First();
             codecContext.Width = frame.Width;
             codecContext.Height = frame.Height;
-            codecContext.TimeBase = new AVRational(1, 25);
+            codecContext.TimeBase = new AVRational(1,25);
             codecContext.Flags = fc.OutputFormat.Value.Flags.HasFlag(AVFMT.Globalheader) ? AV_CODEC_FLAG.GlobalHeader : default;
         };
         codecContext.Open(codec);
